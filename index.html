@@ -353,7 +353,8 @@ const INTERVALS = [0,1,2,4,7,15,30,60,120];
 const VOC = window.VOCAB.map(e => ({...e, key:e.w.toLowerCase()}));
 const byKey = new Map(VOC.map(e=>[e.key,e]));
 const inScope = e => S.cfg.scope==="all" ? true : S.cfg.scope==="exam" ? e.tag.startsWith("必考") : e.tag.startsWith("必考")||e.tag==="基础词";
-const planWords = () => VOC.filter(e=>inScope(e) && e.f>0);
+let _pw=null, _pwScope=null;   // 计划词表缓存(范围变化才重算)
+const planWords = () => { if(_pw && _pwScope===S.cfg.scope) return _pw; _pwScope=S.cfg.scope; return _pw=VOC.filter(e=>inScope(e) && e.f>0); };
 function statusOf(e){ const r=S.srs[e.key]; if(!r) return "new"; return r.lvl>=INTERVALS.length-1 ? "done" : "ing"; }
 function tierOf(f){ return f>=100?"极高" : f>=30?"高频" : f>=8?"常考" : f>=1?"罕见":"未出现"; }
 
@@ -501,7 +502,11 @@ function renderList(){
   }).join("");
   box.innerHTML=`<table><thead><tr><th>单词</th><th>释义</th><th>词频</th><th>状态</th><th>范围</th></tr></thead><tbody>${rows}</tbody></table>${arr.length>listLimit?`<div class="more">显示前 ${listLimit} 条，用筛选缩小范围</div>`:""}`;
 }
-["q","ftag","fstat","fsort"].forEach(id=>document.getElementById(id).addEventListener("input",()=>{listLimit=200;renderList();}));
+let _listTimer=null;
+["q","ftag","fstat","fsort"].forEach(id=>document.getElementById(id).addEventListener("input",()=>{
+  clearTimeout(_listTimer);
+  _listTimer=setTimeout(()=>{listLimit=200;renderList();},120);
+}));
 
 /* ================= 测验 ================= */
 let quiz=null;

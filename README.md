@@ -9,7 +9,9 @@
 
 ## 在线地址（手机推荐用这个）
 
-**https://zenocode01.github.io/kaoyan-english-words/**
+**https://znlovecxy.fun/danci/** （自己的腾讯云服务器，国内访问快）
+
+备用地址：https://zenocode01.github.io/kaoyan-english-words/ （GitHub Pages，国内偶尔慢）
 
 ### 安装到手机（一次性）
 
