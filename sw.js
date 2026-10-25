@@ -1,6 +1,6 @@
 /* 考研英语一背单词 · 离线缓存
  * 更新方法: 改动应用文件后, 把 CACHE 版本号末尾数字 +1 */
-const CACHE = "ky1-pwa-v2";
+const CACHE = "ky1-pwa-v3";
 const ASSETS = [
   "./", "./index.html", "./vocab-data.js", "./manifest.webmanifest",
   "./icons/icon-192.png", "./icons/icon-512.png",

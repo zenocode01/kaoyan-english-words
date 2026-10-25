@@ -172,7 +172,10 @@ p.ps{color:var(--dim);font-size:.85rem;margin-bottom:22px;font-family:system-ui,
 <style id="mobile">
 /* ══════ 手机/PWA 适配 ══════ */
 html,body{min-height:100vh}
-@supports (height:100dvh){html,body{min-height:100dvh} nav{height:100dvh}}
+@supports (height:100dvh){
+  html,body{min-height:100dvh}
+  @media (min-width:761px){ nav{height:100dvh} }   /* 只限桌面侧栏，勿影响手机顶栏 */
+}
 body{-webkit-tap-highlight-color:transparent}
 nav{padding-left:max(18px,env(safe-area-inset-left));padding-right:max(18px,env(safe-area-inset-right))}
 main{padding-bottom:calc(60px + env(safe-area-inset-bottom))}
@@ -182,6 +185,16 @@ main{padding-bottom:calc(60px + env(safe-area-inset-bottom))}
   input,select{font-size:16px}           /* 防 iOS 聚焦放大 */
   .spellbox input{font-size:1.15rem}
   .qprog{padding:0 2px}
+  /* 词表窄屏：隐藏标签列、压缩词频列，整表不出横向溢出 */
+  .wlist th:last-child,.wlist td:last-child{display:none}
+  .wlist{max-height:none}
+  .wlist td.fr{min-width:0;padding-right:10px}
+  .wlist td.fr .fbar{left:8px;width:44px!important}
+  .wlist th,.wlist td{padding-left:8px;padding-right:8px}
+  .qhint{font-size:1.05rem;letter-spacing:.12em}
+  .setrow{gap:12px}
+  .setrow .lbl{flex:1;min-width:0}
+  .setrow select,.setrow input{max-width:52%}
 }
 /* 安装引导 */
 #installRow b{color:var(--red)}
